@@ -1,0 +1,11 @@
+*{margin: 0px;
+padding: 0px;
+outline: 0px;
+box-sizing: 0px;
+}
+
+body{
+    background-color: #fafafa;
+    font: 14px sans-serif;
+    -webkit-font-smoothing: antialiased !important;
+}
