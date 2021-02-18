@@ -20,12 +20,18 @@ class Dashboard extends Component {
         }
 
         firebase.getUserName((info) => {
+            localStorage.nome = info.val().nome;
             this.setState({nome: info.val().nome});
         });
     }
 
-    logout(){
-
+    logout = async () => {
+        await firebase.logout()
+            .catch((error) => {
+                console.log(error);
+            });
+            localStorage.removeItem("nome");
+            this.props.history.push('/');
     }
 
     render(){
@@ -35,7 +41,7 @@ class Dashboard extends Component {
                     <h1>Olá {this.state.nome}</h1>
                     <Link to="/dashboard/new">Novo Post</Link>
                 </div>
-                <p>Logado com: teste@teste.com.br</p>
+                <p>Logado com: {firebase.getCurrentUser()}</p>
                 <button onClick={() => this.logout()}>Deslogar</button>
             </div>
         );
