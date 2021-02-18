@@ -6,6 +6,7 @@ import Login from './components/Login';
 import './global.css';
 import firebase from './firebase';
 import Dashboard from './components/Dashboard';
+import Register from './components/Register';
 
 class App extends Component {
   state ={
@@ -26,6 +27,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/register" component={Register} />
         </Switch>
       </BrowserRouter>
     ) : (
