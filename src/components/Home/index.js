@@ -1,13 +1,53 @@
 import React, {Component} from 'react';
+import firebase from '../../firebase';
+import './home.css';
 
 class Home extends Component {
-    render(){
-        return (
-            <div>
-              <h1>Tela Home</h1>
-            </div>
-          );
-    }
+
+  state = {
+    posts: [],
+  };
+
+  componentDidMount(){
+    firebase.app.ref('posts').once('value', (snapshot)=>{
+      let state = this.state;
+      state.posts = [];
+
+      snapshot.forEach((childItem) => {
+        state.posts.push({
+          key: childItem.key,
+          titulo: childItem.val().titulo,
+          image: childItem.val().image,
+          descricao: childItem.val().descricao,
+          autor: childItem.val().autor,
+        });
+      });
+      this.setState({state});
+    });
+  }
+
+  render(){
+    return (
+        <section>
+          {this.state.posts.map((post) => {
+            return(
+              <article key={post.key}>
+                <header>
+                  <div>
+                    <strong>{post.titulo}</strong>
+                    <span>{post.autor}</span>
+                  </div>
+                </header>
+                <img src={post.image} alt="capa do post"/>
+                <footer>
+                  <p>{post.descricao}</p>
+                </footer>
+              </article>
+            );
+          })}
+        </section>
+      );
+  }
   
 }
 
